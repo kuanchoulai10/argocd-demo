@@ -3,14 +3,12 @@ kind: Kustomization
 
 namespace: trino
 
-# 統一標籤與註記（overlays 可再覆寫/追加）
 commonAnnotations:
   owner: kcl
 
 resources:
 - namespace.yaml
 
-# 使用 Kustomize 內建的 Helm Chart 拉取機制
 helmCharts:
 - name: trino
   namespace: trino
@@ -18,6 +16,7 @@ helmCharts:
   repo: https://trinodb.github.io/charts
   valuesFile: values.yaml
   version: 1.39.1
+
 labels:
 - includeSelectors: true
   pairs:
