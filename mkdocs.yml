@@ -2,7 +2,9 @@ site_name: side-projects/argocd
 docs_dir: docs
 nav:
   - README.md
-
+  - argocd/how-argocd-works.md
+  - argocd/deployment.md
+  - argocd/production-ready.md
 
 theme:
   name: material
