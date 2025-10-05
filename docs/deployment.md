@@ -1,4 +1,4 @@
-# ArgoCD Deployment
+# Argo CD Deployment
 
 
 [Getting Started](https://argo-cd.readthedocs.io/en/stable/getting_started/)
