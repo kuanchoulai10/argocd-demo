@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: trino-region-env
+  namespace: argocd
+spec:
+  generators:
+    - matrix:
+        generators:
+          - list:
+              elements:
+                - env: dev
+                - env: prod
+          - list:
+              elements:
+                - region: eu
+                - region: jp
+  template:
+    metadata:
+      name: 'trino-{{region}}-{{env}}'
+    spec:
+      project: 'default'
+      sources:
+        - repoURL: https://trinodb.github.io/charts
+          chart: trino
+          targetRevision: 1.39.1
+          helm:
+            releaseName: 'trino-{{region}}-{{env}}'
+            valueFiles:
+              - '$values/trino/base/values.yaml'
+              - '$values/trino/base/regions/{{region}}/values.yaml'
+              - '$values/trino/base/envs/{{env}}/values.yaml'
+        - repoURL: https://github.com/kuanchoulai10/argocd-demo
+          targetRevision: main
+          ref: values
+      destination:
+        server: 'https://kubernetes.default.svc'
+        namespace: '{{region}}-{{env}}'
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
