@@ -48,3 +48,18 @@ The Sync Process
 | SyncFail   | Executes when the sync operation fails.                                                                                      |
 | PostDelete | Executes after all Application resources are deleted. *Available starting in v2.10*.                                         |
 
+## [Multiple Sources for an Application](https://argo-cd.readthedocs.io/en/stable/user-guide/multiple_sources/)
+
+Argo CD supports using multiple sources for an application. This allows you to define an application that is composed of multiple manifests stored in different Git repositories or different paths within the same repository.
+
+A typical use case for multiple sources involves:
+
+1. Utilizing an external or public Helm chart from your organization
+2. Customizing the Helm values using your own local configuration
+3. Avoiding local duplication of the Helm chart to prevent manual monitoring of upstream updates
+
+## Deployment Patterns
+
+### App of Apps Pattern
+
+### ApplicatonSet Pattern
