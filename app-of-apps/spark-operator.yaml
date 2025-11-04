@@ -14,10 +14,10 @@ spec:
       helm:
         releaseName: 'spark-operator'
         valueFiles:
-          - '$argocd-demo/apps/00-opeartors/spark/values.yaml'
+          - '$values/apps/00-opeartors/spark/values.yaml'
     - repoURL: https://github.com/kuanchoulai10/argocd-demo
       targetRevision: main
-      ref: argocd-demo
+      ref: values
   destination:
     name: in-cluster
     # server: 'https://kubernetes.default.svc'
