@@ -13,8 +13,7 @@ spec:
         recurse: true
   destination:
     name: in-cluster
-    # server: 'https://kubernetes.default.svc'
-    namespace: 'argocd'
+    namespace: argocd
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

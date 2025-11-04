@@ -4,27 +4,27 @@ metadata:
   name: spark-operator
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: 0
 spec:
   project: 'default'
   sources:
-    # - repoURL: https://github.com/kuanchoulai10/argocd-demo
-    #   targetRevision: main
-    #   ref: values
+    - repoURL: https://github.com/kuanchoulai10/argocd-demo
+      targetRevision: main
+      ref: values
     - repoURL: https://kubeflow.github.io/spark-operator
       chart: spark-operator
       targetRevision: 2.3.0
       helm:
         releaseName: 'spark-operator'
-        # valueFiles:
-        #   - '$values/apps/00-opeartors/spark/values.yaml'
+        valueFiles:
+          - '$values/apps/00-operators/spark/values.yaml'
   destination:
     name: in-cluster
-    # server: 'https://kubernetes.default.svc'
-    namespace: 'spark-operator'
+    namespace: spark-operator
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+      - ServerSideApply=true
     automated:
       prune: true
       selfHeal: true
