@@ -13,6 +13,9 @@ spec:
       targetRevision: 1.8.1
       helm:
         releaseName: karpenter
+        valuesObject:
+          settings:
+            clusterName: test
   destination:
     name: in-cluster
     namespace: karpenter
