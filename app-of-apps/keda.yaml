@@ -1,26 +1,26 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: spark-operator
+  name: keda
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   project: 'default'
   sources:
+    - repoURL: https://kedacore.github.io/charts
+      chart: keda
+      targetRevision: 2.18.0
+      helm:
+        releaseName: keda
+        valueFiles:
+          - '$repo/apps/00-operators/keda/values.yaml'
     - repoURL: https://github.com/kuanchoulai10/argocd-demo
       targetRevision: main
       ref: repo
-    - repoURL: https://kubeflow.github.io/spark-operator
-      chart: spark-operator
-      targetRevision: 2.3.0
-      helm:
-        releaseName: spark-operator 
-        valueFiles:
-          - '$repo/apps/00-operators/spark/values.yaml'
   destination:
     name: in-cluster
-    namespace: spark-operator
+    namespace: keda
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

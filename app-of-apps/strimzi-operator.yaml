@@ -1,26 +1,26 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: spark-operator
+  name: strimzi-operator
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   project: 'default'
   sources:
+    - repoURL: https://strimzi.io/charts/
+      chart: strimzi-operator
+      targetRevision: 2.3.0
+      helm:
+        releaseName: strimzi-operator
+        valueFiles:
+          - '$repo/apps/00-operators/strimzi/values.yaml'
     - repoURL: https://github.com/kuanchoulai10/argocd-demo
       targetRevision: main
       ref: repo
-    - repoURL: https://kubeflow.github.io/spark-operator
-      chart: spark-operator
-      targetRevision: 2.3.0
-      helm:
-        releaseName: spark-operator 
-        valueFiles:
-          - '$repo/apps/00-operators/spark/values.yaml'
   destination:
     name: in-cluster
-    namespace: spark-operator
+    namespace: strimzi-operator
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
