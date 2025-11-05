@@ -4,7 +4,7 @@ metadata:
   name: cert-manager
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   project: default
   sources:
@@ -13,9 +13,11 @@ spec:
       targetRevision: v1.19.1
       helm:
         releaseName: cert-manager
-        valuesObject:
-          crds:
-            enabled: true
+        valueFiles:
+          - '$repo/apps/00-operators/cert-manager/values.yaml'
+    - repoURL: https://github.com/kuanchoulai10/argocd-demo
+      targetRevision: main
+      ref: repo
   destination:
     name: in-cluster
     namespace: cert-manager
