@@ -4,9 +4,9 @@ metadata:
   name: opentelemetry-operator
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "11" # after cert-manager
 spec:
-  project: default
+  project: {{ .Values.project.name }}
   sources:
     - repoURL: https://open-telemetry.github.io/opentelemetry-helm-charts
       chart: opentelemetry-operator
@@ -19,7 +19,7 @@ spec:
       targetRevision: main
       ref: repo
   destination:
-    name: in-cluster
+    name: {{ .Values.spec.destination.name }}
     namespace: opentelemetry-operator
   syncPolicy:
     syncOptions:

@@ -4,9 +4,9 @@ metadata:
   name: cert-manager
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "10"
 spec:
-  project: default
+  project: {{ .Values.project.name }}
   sources:
     - repoURL: oci://quay.io/jetstack/charts/cert-manager
       path: .
@@ -19,7 +19,7 @@ spec:
       targetRevision: main
       ref: repo
   destination:
-    name: in-cluster
+    name: {{ .Values.spec.destination.name }}
     namespace: cert-manager
   syncPolicy:
     syncOptions:

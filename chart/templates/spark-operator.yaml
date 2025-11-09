@@ -4,9 +4,9 @@ metadata:
   name: spark-operator
   namespace: argocd
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "10"
 spec:
-  project: default
+  project: {{ .Values.project.name }}
   sources:
     - repoURL: https://github.com/kuanchoulai10/argocd-demo
       targetRevision: main
@@ -19,7 +19,7 @@ spec:
         valueFiles:
           - '$repo/apps/00-operators/spark/values.yaml'
   destination:
-    name: in-cluster
+    name: {{ .Values.spec.destination.name }}
     namespace: spark-operator
   syncPolicy:
     syncOptions:
