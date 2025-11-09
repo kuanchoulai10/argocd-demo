@@ -11,50 +11,6 @@ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/$A
 ```
 
 ```bash
-argocd login --core --insecure
-```
-
-```bash
-argocd app create guestbook \
-  --repo https://github.com/argoproj/argocd-example-apps.git \
-  --path guestbook \
-  --dest-server https://kubernetes.default.svc \
-  --dest-namespace default
-```
-
-```bash
-argocd app get guestbook
-```
-
-??? info "Result"
-
-    ```
-    argocd app get guestbook
-    Name:               argocd/guestbook
-    Project:            default
-    Server:             https://kubernetes.default.svc
-    Namespace:          default
-    URL:                http://localhost:63390/applications/guestbook
-    Source:
-    - Repo:             https://github.com/argoproj/argocd-example-apps.git
-    Target:           
-    Path:               guestbook
-    SyncWindow:         Sync Allowed
-    Sync Policy:        Manual
-    Sync Status:        Synced to  (0d521c6)
-    Health Status:      Healthy
-
-    GROUP  KIND        NAMESPACE  NAME          STATUS  HEALTH   HOOK  MESSAGE
-           Service     default    guestbook-ui  Synced  Healthy        service/guestbook-ui created
-    apps   Deployment  default    guestbook-ui  Synced  Healthy        deployment.apps/guestbook-ui created
-    ```
-
-```bash
-argocd app sync guestbook
-```
-
-
-```bash
 kubectl port-forward svc/argocd-server -n argocd 8080:443
 ```
 
